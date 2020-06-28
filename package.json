@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rebass/forms": "^4.0.6",
+    "@rebass/preset": "^4.0.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -10,9 +12,13 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "emotion-theming": "^10.0.27",
+    "graphql-request": "^2.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "rebass": "^4.0.7",
+    "swr": "^0.2.3",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -38,6 +44,8 @@
     ]
   },
   "devDependencies": {
+    "@types/rebass": "^4.0.6",
+    "@types/rebass__forms": "^4.0.2",
     "prettier": "^2.0.5"
   }
 }
