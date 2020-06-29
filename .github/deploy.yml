@@ -1,0 +1,40 @@
+name: "Deploy"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      GKE_PROJECT: test-task-281812
+      GKE_IMAGE: github-search
+      GKE_REGION: europe-west4
+      GKE_RUN_SERVICE: app
+      REACT_APP_GITHUB_TOKEN: ${{ secrets.READ_GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node modules
+        run: yarn
+      - name: Test
+        run: yarn test
+      - name: Build
+        run: yarn build
+      - name: Prepare Docker image
+        run: docker build -t gcr.io/$GKE_PROJECT/$GKE_IMAGE:latest .
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: "290.0.0"
+          project_id: platinum-wave-232322
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          export_default_credentials: true
+      - name: Set up credentials for Docker
+        run: gcloud auth configure-docker --quiet
+      - name: Push docker image
+        run: docker push gcr.io/$GKE_PROJECT/$GKE_IMAGE:latest
+      - name: Deploy app
+        run: gcloud run deploy $GKE_RUN_SERVICE --image gcr.io/$GKE_PROJECT/$GKE_IMAGE:latest --platform managed --region $GKE_REGION
