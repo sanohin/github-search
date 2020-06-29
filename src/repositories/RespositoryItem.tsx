@@ -20,13 +20,13 @@ export const RepositoryItem: React.FC<{ value: RepoElement }> = ({ value }) => {
         width={1 / 6}
         aria-label={`${stargazers.totalCount} users starred this repository`}
       >
-        🌟{stargazers.totalCount}
+        <span role="img" aria-label="star">🌟</span>{stargazers.totalCount}
       </Box>
       <Box
         width={1 / 6}
         aria-label={`${forkCount} users forked this repository`}
       >
-        🍴{forkCount}
+        <span role="img" aria-label="fork">🍴</span>{forkCount}
       </Box>
     </Flex>
   );
